@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 40%;
+}
+</style>
+<body>
+
+<table align="center">
+  <tr>
+    <th colspan="5">List of Books</th>
+  </tr>
+  <tr>
+    <th rowspan="2">Item No</th>
+    <th rowspan="2">item Name</th>
+    <th colspan="2">Price</th>
+  </tr>
+  <tr>
+    <th>Rupees</th>
+    <th>paise</th>
+  </tr>
+  <tr>
+    <th>1</th>
+    <th>programming in java</th>
+    <th>$435</th>
+    <th>$435</th>
+  </tr>
+  <tr>
+    <th>2</th>
+    <th>programming in python</th>
+    <th>$334</th>
+    <th>$435</th>
+  </tr>
+</table>
+
+</body>
+</html>

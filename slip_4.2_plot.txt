@@ -1,0 +1,30 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+#line plot
+x = np.arange(1, 51)
+y = np.random.randint(1, 10, 50)
+
+#histogram
+x1 = np.arange(1, 51)
+y1 = np.random.randint(1, 10, 50)
+
+#scatter plot
+fig, ax = plt.subplots(figsize =(10, 10))
+y2 = np.random.randint(0, 51, 50)
+
+#Box plot
+data = np.random.normal(100, 20, 50)
+fig = plt.figure(figsize =(10, 7))
+
+# plotting
+plt.title("Line graph") 
+plt.xlabel("X axis")
+plt.ylabel("Y axis")
+plt.plot(x, y, color ="green") #histogram
+plt.scatter(x1, y1) #histogram
+ax.hist(y2, color='blue') #scatter plot
+plt.show()
+
+plt.boxplot(data) #Box plot
+plt.show()
