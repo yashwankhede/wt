@@ -1,0 +1,99 @@
+Q1.
+
+<?php
+// Create a new DOM document
+$doc = new DOMDocument();
+
+// Create the root element
+$cricketTeam = $doc->createElement("CricketTeam");
+
+// Create the first team element for Australia
+$teamAustralia = $doc->createElement("Team");
+$teamAustralia->setAttribute("country", "Australia");
+
+// Create the player element and set its value
+$player1 = $doc->createElement("player", "SteveSmith");
+$teamAustralia->appendChild($player1);
+
+// Create the runs element and set its value
+$runs1 = $doc->createElement("runs", "7090");
+$teamAustralia->appendChild($runs1);
+
+// Create the wicket element and set its value
+$wicket1 = $doc->createElement("wicket", "17");
+$teamAustralia->appendChild($wicket1);
+
+// Append the team element to the root element
+$cricketTeam->appendChild($teamAustralia);
+
+// Create the second team element for India
+$teamIndia = $doc->createElement("Team");
+$teamIndia->setAttribute("country", "India");
+
+// Create the player element and set its value
+$player2 = $doc->createElement("player", "ViratKohli");
+$teamIndia->appendChild($player2);
+
+// Create the runs element and set its value
+$runs2 = $doc->createElement("runs", "12169");
+$teamIndia->appendChild($runs2);
+
+// Create the wicket element and set its value
+$wicket2 = $doc->createElement("wicket", "4");
+$teamIndia->appendChild($wicket2);
+
+// Create the category element and set its value
+$category = $doc->createElement("category", "Captain");
+$teamIndia->appendChild($category);
+
+// Append the team element to the root element
+$cricketTeam->appendChild($teamIndia);
+
+// Append the root element to the document
+$doc->appendChild($cricketTeam);
+
+// Save the XML file
+$doc->save("cricket.xml");
+
+echo "Elements added successfully!";
+?>
+
+
+=============================
+Q2.
+
+
+import pandas as pd
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+# Read the dataset
+df = pd.read_csv('covid_2021_1.csv')
+
+# Remove null values and duplicates
+df.dropna(inplace=True)
+df.drop_duplicates(subset='Comment', inplace=True)
+
+# Tokenize comments into words
+nltk.download('punkt')
+df['tokens'] = df['Comment'].apply(nltk.word_tokenize)
+
+# Perform sentiment analysis
+nltk.download('vader_lexicon')
+sia = SentimentIntensityAnalyzer()
+df['sentiment'] = df['Comment'].apply(lambda x: sia.polarity_scores(x)['compound'])
+
+# Calculate percentage of positive, negative, and neutral comments
+total_comments = len(df)
+positive_comments = len(df[df['sentiment'] > 0])
+negative_comments = len(df[df['sentiment'] < 0])
+neutral_comments = len(df[df['sentiment'] == 0])
+positive_percentage = (positive_comments / total_comments) * 100
+negative_percentage = (negative_comments / total_comments) * 100
+neutral_percentage = (neutral_comments / total_comments) * 100
+
+# Print the results
+print('Total Comments:', total_comments)
+print('Positive Comments:', positive_comments, '(', positive_percentage, '%)')
+print('Negative Comments:', negative_comments, '(', negative_percentage, '%)')
+print('Neutral Comments:', neutral_comments, '(', neutral_percentage, '%)')

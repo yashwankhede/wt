@@ -1,0 +1,62 @@
+Q1.
+
+<?php // Start session session_start();
+
+// Check if login form has been submitted if(isset($_POST['submit'])) { // Get username and password input from user $username = $_POST['username']; $password = $_POST['password'];
+
+// Set correct username and password
+$correct_username = 'myusername';
+$correct_password = 'mypassword';
+
+// Check if entered username and password are correct
+if($username == $correct_username && $password == $correct_password) {
+    // Set session variable to mark user as logged in
+    $_SESSION['loggedin'] = true;
+    
+    // Redirect user to welcome page
+    header('Location: welcome.php');
+    exit;
+} else {
+    // Decrement login attempts
+    if(isset($_SESSION['attempts'])) {
+        $_SESSION['attempts']--;
+    } else {
+        $_SESSION['attempts'] = 3;
+    }
+    
+    // Display error message if maximum login attempts exceeded
+    if($_SESSION['attempts'] <= 0) {
+        echo "Maximum login attempts exceeded. Please try again later.";
+    } else {
+        // Display error message
+        echo "Invalid username or password. You have " . $_SESSION['attempts'] . " attempt(s) left.";
+    }
+}
+
+
+} ?>
+
+<!-- HTML form for user input --> <form method="post"> <label for="username">Username:</label> <input type="text" id="username" name="username" required><br><br> <label for="password">Password:</label> <input type="password" id="password" name="password" required><br><br> <input type="submit" name="submit" value="Log In"> </form>
+
+====================================
+Q2.
+
+import pandas as pd
+
+data = {'UserID':[1,2,3,4,5,6,7,8,9,10], 'Gender':['Male','Male','Female','Female','Male','Male','Female','Female','Male','Female'], 'Age':[19,35,26,27,19,27,32,25,33,45], 'EstimatedSalary':[19000,20000,43000,57000,76000,58000,82000,32000,69000,65000], 'Purchased':[0,0,0,1,1,0,1,0,1,1]}
+
+df = pd.DataFrame(data)
+
+from sklearn.model_selection import train_test_split
+
+X = df.iloc[:,1:4].values Y = df.iloc[:,4].values
+
+X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.3, random_state=0)
+
+from sklearn.linear_model import LogisticRegression
+
+Lr = LogisticRegression(random_state=0) Lr.fit(X_train, y_train)
+
+#Predict a single observation observation = [[0,30,87000]] Prediction = Lr.predict(observation) print(Prediction)
+
+#Predict multiple observations observations = [[0,30,87000], [1,50,45000], [1,22,30000]] Predictions = Lr.predict(observations) print(Predictions)

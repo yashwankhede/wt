@@ -1,0 +1,107 @@
+Q1.
+
+Firstpage.php
+
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Details</title>
+</head>
+<body>
+    <h1>Employee Details</h1>
+    <form method="POST" action="Secondpage.php">
+        <label for="eno">Employee No:</label>
+        <input type="text" id="eno" name="eno"><br><br>
+        <label for="ename">Employee Name:</label>
+        <input type="text" id="ename" name="ename"><br><br>
+        <label for="address">Address:</label>
+        <textarea id="address" name="address"></textarea><br><br>
+        <input type="submit" value="Next">
+    </form>
+</body>
+</html>
+<?php
+// Store employee details in session
+if(isset($_POST['eno']) && isset($_POST['ename']) && isset($_POST['address'])) {
+    $_SESSION['eno'] = $_POST['eno'];
+    $_SESSION['ename'] = $_POST['ename'];
+    $_SESSION['address'] = $_POST['address'];
+}
+?>
+
+Secondpage.php
+
+<?php
+session_start();
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Employee Details</title>
+</head>
+<body>
+<h1>Employee Details</h1>
+<form method="POST" action="Secondpage.php">
+  <label for="eno">Employee No:</label>
+  <input type="text" id="eno" name="eno"><br><br>
+  <label for="ename">Employee Name:</label>
+  <input type="text" id="ename" name="ename"><br><br>
+  <label for="address">Address:</label>
+  <textarea id="address" name="address"></textarea><br><br>
+  <input type="submit" value="Next">
+</form>
+</body>
+</html>
+<?php
+// Store employee details in session
+if(isset($_POST['eno']) && isset($_POST['ename']) && isset($_POST['address'])) {
+  $_SESSION['eno'] = $_POST['eno'];
+  $_SESSION['ename'] = $_POST['ename'];
+  $_SESSION['address'] = $_POST['address'];
+}
+?>
+
+Thirdpage.php
+
+<?php
+session_start();
+// Calculate total earnings
+$total = $_SESSION['basic'] + $_SESSION['da'] + $_SESSION['hra'];
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Employee Information</title>
+</head>
+<body>
+<h1>Employee Information</h1>
+<p><strong>Employee No:</strong><?php echo $_SESSION['eno']; ?></p>
+<p><strong>Employee Name:</strong><?php echo $_SESSION['ename']; ?></p>
+<p><strong>Address:</strong><?php echo $_SESSION['address']; ?></p>
+<p><strong>Basic:</strong><?php echo $_SESSION['basic']; ?></p>
+<p><strong>DA:</strong><?php echo $_SESSION['da']; ?></p>
+<p><strong>HRA:</strong><?php echo $_SESSION['hra']; ?></p>
+<p><strong>Total Earnings:</strong><?php echo $total; ?></p>
+</body>
+</html>
+
+
+========================================
+Q2.
+
+import pandas as pd import random from sklearn.linear_model import LinearRegression
+
+#create the dataset
+
+fish_species = ['Tuna', 'Salmon', 'Trout', 'Bass', 'Sardine', 'Cod', 'Mackerel'] weights = [] for i in range(50): fish_weight = [] for j in range(7): weight = random.randint(1, 20) fish_weight.append(weight) weights.append(fish_weight) df = pd.DataFrame(weights, columns=fish_species)
+
+#create the linear regression model
+
+X = df.iloc[:, :-1] # independent variables y = df.iloc[:, -1] # target variable model = LinearRegression() model.fit(X, y)
+
+#predict the weight of a new fish species
+
+new_fish = [[10, 12, 15, 7, 4, 8]] # example input predicted_weight = model.predict(new_fish) print("Predicted weight:", predicted_weight)

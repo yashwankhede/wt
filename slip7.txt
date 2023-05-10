@@ -1,0 +1,86 @@
+Q1.
+
+Php file
+
+<?php
+//Load the XML file
+$xml = new DOMDocument();
+$xml->load('Movie.xml');
+
+//Get all the movie nodes
+$movies = $xml->getElementsByTagName('MovieInfo');
+
+//Loop through each movie node and print the movie title and actor name
+foreach($movies as $movie){
+    echo "MovieTitle: ".$movie->getElementsByTagName('MovieTitle')[0]->textContent.", ";
+    echo "ActorName: ".$movie->getElementsByTagName('ActorName')[0]->textContent."<br>";
+}
+?>
+
+XMLfile
+
+<?xml version="1.0"?> 
+<MovieList> 
+	<MovieInfo> 
+		<MovieNo>1</MovieNo> 
+		<MovieTitle>The Shawshank Redemption</MovieTitle> 
+		<ActorName>TimRobbins</ActorName> 
+		<ReleaseYear>1994</ReleaseYear> 
+	</MovieInfo> 
+	<MovieInfo> 
+		<MovieNo>2</MovieNo> 
+		<MovieTitle>The God father</MovieTitle> 
+		<ActorName>Marlon Brando</ActorName> 
+		<ReleaseYear>1972</ReleaseYear> 
+	</MovieInfo> 
+	<MovieInfo> 
+		<MovieNo>3</MovieNo> 
+		<MovieTitle>The Dark Knight</MovieTitle> 
+		<ActorName>Christian Bale</ActorName> 
+		<ReleaseYear>2008</ReleaseYear> 
+	</MovieInfo> 
+	<MovieInfo> 
+		<MovieNo>4</MovieNo> 
+		<MovieTitle>The God father:PartII</MovieTitle> 
+		<ActorName>AlPacino</ActorName> 
+		<ReleaseYear>1974</ReleaseYear> 
+	</MovieInfo> 
+	<MovieInfo> 
+		<MovieNo>5</MovieNo> 
+		<MovieTitle>12 Angry Men</MovieTitle> 
+		<ActorName>HenryFonda</ActorName> 
+		<ReleaseYear>1957</ReleaseYear> 
+	</MovieInfo> 
+</MovieList>
+
+=================================
+Q2.
+
+import pandas as pd
+from mlxtend.preprocessing import TransactionEncoder
+from mlxtend.frequent_patterns import apriori, association_rules
+
+# read the dataset
+df = pd.read_csv('Market_Basket_Optimisation.csv', header=None)
+
+# drop null values
+df.dropna(inplace=True)
+
+# convert categorical values to numeric using one-hot encoding
+te = TransactionEncoder()
+te_ary = te.fit(df.values).transform(df.values)
+df = pd.DataFrame(te_ary, columns=te.columns_)
+
+# generate frequent itemsets using apriori algorithm
+frequent_itemsets = apriori(df, min_support=0.01, use_colnames=True)
+
+# generate association rules from frequent itemsets
+rules = association_rules(frequent_itemsets, metric='lift', min_threshold=1)
+
+# display information
+print("Original Dataset:\n")
+print(df.head())
+print("\nFrequent Itemsets:\n")
+print(frequent_itemsets)
+print("\nAssociation Rules:\n")
+print(rules)

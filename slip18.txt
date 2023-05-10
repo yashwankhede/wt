@@ -1,0 +1,81 @@
+Q1.
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Fibonacci Numbers</title>
+	<script>
+		function generateFibonacci() {
+			// Get the input value from the user
+			var input = document.getElementById("inputNumber").value;
+			var output = document.getElementById("output");
+			// Convert the input to a number
+			var n = parseInt(input);
+			// Create an array to store the Fibonacci sequence
+			var fib = [];
+			// Calculate the Fibonacci sequence up to n
+			fib[0] = 0;
+			fib[1] = 1;
+			for(var i = 2; i <= n; i++) {
+				fib[i] = fib[i-1] + fib[i-2];
+			}
+			// Display the Fibonacci sequence
+			output.innerHTML = "Fibonacci sequence up to " + n + ": " + fib.join(",");
+		}
+	</script>
+</head>
+<body>
+	<h1>Fibonacci Numbers</h1>
+	<p>Enter a number:</p>
+	<input type="text" id="inputNumber">
+	<button onclick="generateFibonacci()">Generate Fibonacci</button>
+	<p id="output"></p>
+</body>
+</html>
+
+
+========================================
+Q2.
+
+# Install the libraries
+!pip install nltk matplotlib wordcloud
+
+# Import the necessary modules
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk.probability import FreqDist
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud
+
+# Download the stopwords corpus
+nltk.download('stopwords')
+
+# Define the text paragraph
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique ante et velit vestibulum, vel pharetra orci aculis. Nullam mattis risus quis augue tincidunt rhoncus. Morbi varius, arcu vitae scelerisque laoreet, magna est imperdiet quam, sit amet ultrices lectus justo id enim. Sed dictum suscipit commodo. Sed maximus consequat risus, nec pharetra nibh interdum quis. Etiam eget quam vel augue dictum dignissim sit amet nec elit. Nunc at sapien dolor. Nulla vitae iaculis lorem. Suspendisse potenti. Sed non ante turpis. Morbi consectetur, arcu vestibulum suscipit, mauris eros convallis nibh, nec feugiat orci enim sit amet enim. Aliquam erat volutpat. Etiam vel nisi id neque viverra dapibus non non lectus."
+
+# Tokenize the paragraph to extract words and sentences
+words = word_tokenize(text.lower())
+sentences = sent_tokenize(text)
+
+# Remove the stopwords from the extracted words
+stop_words = set(stopwords.words('english'))
+filtered_words = [word for word in words if word.casefold() not in stop_words]
+
+# Calculate the word frequency distribution and plot the frequencies using matplotlib
+fdist = FreqDist(filtered_words)
+fdist.plot(30, cumulative=False)
+plt.show()
+
+# Plot the wordcloud of the text using wordcloud
+wordcloud = WordCloud(width=800, height=800,
+                      background_color='white',
+                      stopwords=stop_words,
+                      min_font_size=10).generate(text)
+
+# Plot the WordCloud image
+plt.figure(figsize=(8, 8), facecolor=None)
+plt.imshow(wordcloud)
+plt.axis("off")
+plt.tight_layout(pad=0)
+plt.show()

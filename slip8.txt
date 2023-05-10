@@ -1,0 +1,53 @@
+Q1.
+
+// Display message using alert box 
+alert('Exams are near, have you started preparing for?');
+
+// Accept two numbers from user using prompt and confirm boxes 
+let num1 = prompt('Enter first number:'); 
+let num2 = prompt('Enter second number:'); 
+let confirmMsg = Are you sure you want to add ${num1} and ${num2}?;
+
+// Show confirmation message to user using confirm box 
+let confirmResult = confirm(confirmMsg);
+
+// If user confirms, then perform addition and display the result if (confirmResult) { num1 = parseInt(num1); num2 = parseInt(num2); 
+let sum = num1 + num2; 
+alert(The sum of ${num1} and ${num2} is ${sum}.); }
+
+=====================================
+Q2.
+
+import pandas as pd
+from mlxtend.preprocessing import TransactionEncoder
+from mlxtend.frequent_patterns import apriori, association_rules
+
+# Load the dataset
+df = pd.read_csv('market_basket.csv')
+
+# Drop any rows with null values
+df.dropna(inplace=True)
+
+# Convert categorical values to numeric format
+te = TransactionEncoder()
+te_ary = te.fit(df.values).transform(df.values)
+df = pd.DataFrame(te_ary, columns=te.columns_)
+
+# Generate frequent itemsets
+frequent_itemsets = apriori(df, min_support=0.01, use_colnames=True)
+
+# Generate association rules
+rules = association_rules(frequent_itemsets, metric='lift', min_threshold=1)
+
+# Display information about the dataset
+print("Dataset information:")
+print(df.info())
+
+# Display the frequent itemsets
+print("\nFrequent itemsets:")
+print(frequent_itemsets)
+
+# Display the association rules
+print("\nAssociation rules:")
+print(rules)
+

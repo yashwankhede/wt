@@ -1,0 +1,62 @@
+Q1.
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AJAX Auto Suggestions Example</title>
+  <script>
+    function fetchSuggestions(str) {
+      if (str.length == 0) {
+        document.getElementById("suggestions").innerHTML = "";
+        return;
+      }
+      var suggestions = ["apple", "banana", "cherry", "dates", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon"];
+      var matches = [];
+      for (var i = 0; i < suggestions.length; i++) {
+        if (suggestions[i].toLowerCase().startsWith(str.toLowerCase())) {
+          matches.push(suggestions[i]);
+        }
+      }
+      if (matches.length > 0) {
+        document.getElementById("suggestions").innerHTML = matches.join("<br>");
+      } else {
+        document.getElementById("suggestions").innerHTML = "No suggestions found";
+      }
+    }
+  </script>
+</head>
+<body>
+  <input type="text" onkeyup="fetchSuggestions(this.value)">
+  <div id="suggestions"></div>
+</body>
+</html>
+
+
+===========================================
+Q2.
+
+import pandas as pd
+
+# Create the dataset
+data = {'No': [1, 2, 3, 4],
+        'Company': ['Tata', 'MG', 'Kia', 'Hyundai'],
+        'Model': ['Nexon', 'Astor', 'Seltos', 'Creta'],
+        'Year': [2017, 2021, 2019, 2015]}
+df = pd.DataFrame(data)
+
+# Convert categorical values into numeric format
+df['Company'] = pd.Categorical(df['Company'])
+df['Model'] = pd.Categorical(df['Model'])
+df['Company'] = df['Company'].cat.codes
+df['Model'] = df['Model'].cat.codes
+print(df)
+
+from mlxtend.frequent_patterns import apriori, association_rules
+
+# Generate frequent itemsets with min_sup=0.5
+frequent_itemsets = apriori(df, min_support=0.5, use_colnames=True)
+print(frequent_itemsets)
+
+# Generate association rules with min_threshold=0.7
+association_rules = association_rules(frequent_itemsets, metric='confidence', min_threshold=0.7)
+print(association_rules)
